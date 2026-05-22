@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel Sarlund — IT & Business</title>
+  <meta name="description" content="Gabriel Sarlund — Business Information Technology student at Haaga-Helia UAS, passionate about AI and business solutions." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #f6f3ee;
+      --ink: #18160f;
+      --mid: #6e6a62;
+      --accent: #b8441e;
+      --line: #dedad2;
+      --white: #ffffff;
+      --fs-xs: 0.75rem;
+      --fs-sm: 0.875rem;
+      --fs-base: 1rem;
+      --fs-lg: 1.125rem;
+      --fs-xl: 1.25rem;
+      --fs-2xl: 1.5rem;
+      --fs-3xl: 2rem;
+      --fs-4xl: clamp(2.5rem, 5vw, 4rem);
+      --fs-hero: clamp(3rem, 7vw, 6rem);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: var(--cream); color: var(--ink); font-family: "DM Sans", sans-serif; font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+    /* SKIP LINK for accessibility */
+    .skip-link {
+      position: absolute; top: -100px; left: 1rem;
+      background: var(--accent); color: white; padding: 0.5rem 1rem;
+      border-radius: 2px; font-size: var(--fs-sm); z-index: 9999;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 4rem;
+      background: rgba(246,243,238,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-color: var(--line); }
+
+    .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 0.7rem; }
+    .nav-logo img { height: 46px; width: auto; display: block; }
+    .logo-wordmark { display: flex; flex-direction: column; justify-content: center; gap: 0.1rem; }
+    .logo-name { font-family: "Cormorant Garamond", serif; font-size: var(--fs-lg); font-weight: 600; color: var(--ink); line-height: 1.1; letter-spacing: 0.02em; }
+    .logo-sub { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: var(--fs-xs); letter-spacing: 0.13em; text-transform: uppercase; text-decoration: none; color: var(--mid); transition: color 0.2s; padding: 0.25rem 0; }
+    .nav-links a:hover, .nav-links a:focus { color: var(--accent); outline: none; }
+
+    /* Hamburger */
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); transition: all 0.25s; border-radius: 2px; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--cream); z-index: 99; padding: 6rem 2rem 2rem;
+      flex-direction: column; gap: 0;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: var(--fs-xl); font-family: "Cormorant Garamond", serif; font-weight: 300; color: var(--ink); text-decoration: none; padding: 1.2rem 0; border-bottom: 1px solid var(--line); transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; align-items: center; padding: 5rem 4rem 4rem; gap: 4rem; max-width: 1300px; margin: 0 auto; width: 100%; }
+    .hero-text h1 { font-family: "Cormorant Garamond", serif; font-size: var(--fs-hero); font-weight: 300; line-height: 1.04; letter-spacing: -0.01em; opacity: 0; animation: fadeUp 1s 0.3s forwards; }
+    .hero-text h1 .first { display: block; }
+    .hero-text h1 .last { display: block; font-style: italic; color: var(--accent); }
+    .hero-subtitle { margin-top: 1.8rem; font-size: var(--fs-lg); color: var(--mid); max-width: 420px; line-height: 1.8; opacity: 0; animation: fadeUp 1s 0.5s forwards; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.8rem; opacity: 0; animation: fadeUp 1s 0.65s forwards; }
+    .tag { font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--line); padding: 0.35rem 0.9rem; border-radius: 2px; color: var(--mid); }
+    .hero-cta { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 1s 0.8s forwards; }
+
+    .btn { font-family: "DM Sans", sans-serif; font-size: var(--fs-sm); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.9rem 2rem; border-radius: 2px; transition: all 0.25s; display: inline-block; font-weight: 400; }
+    .btn-primary { background: var(--ink); color: var(--cream); }
+    .btn-primary:hover, .btn-primary:focus { background: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-outline { border: 1.5px solid var(--ink); color: var(--ink); }
+    .btn-outline:hover, .btn-outline:focus { background: var(--ink); color: var(--cream); outline: 2px solid var(--ink); outline-offset: 2px; }
+
+    .hero-visual { display: flex; flex-direction: column; align-items: center; gap: 1.6rem; opacity: 0; animation: fadeUp 1s 0.45s forwards; }
+    .profile-photo { width: 260px; height: 260px; border-radius: 50%; object-fit: cover; object-position: 40% 30%; display: block; border: 3px solid var(--white); box-shadow: 0 10px 40px rgba(0,0,0,0.13); }
+    .hero-info-cards { display: flex; flex-direction: column; gap: 0.6rem; width: 100%; max-width: 280px; }
+    .hero-card { background: var(--white); border: 1px solid var(--line); border-radius: 2px; padding: 0.8rem 1.2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .hero-card-label { font-size: var(--fs-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); }
+    .hero-card-value { font-family: "Cormorant Garamond", serif; font-size: var(--fs-base); font-weight: 400; text-align: right; }
+
+    .social-links { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+    .social-link { font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--mid); border: 1px solid var(--line); padding: 0.4rem 0.85rem; border-radius: 2px; transition: all 0.2s; }
+    .social-link:hover, .social-link:focus { border-color: var(--accent); color: var(--accent); outline: none; }
+
+    /* SECTIONS */
+    section { padding: 5rem 4rem; }
+    .section-label { font-size: var(--fs-xs); letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+    .section-title { font-family: "Cormorant Garamond", serif; font-size: var(--fs-4xl); font-weight: 300; line-height: 1.12; margin-bottom: 2.5rem; }
+    .divider { border: none; border-top: 1px solid var(--line); }
+
+    /* ABOUT */
+    .about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 5rem; align-items: start; }
+    .about-text p { color: var(--mid); font-size: var(--fs-base); margin-bottom: 1.2rem; line-height: 1.85; }
+    .about-stats { display: flex; flex-direction: column; }
+    .stat-item { padding: 1.4rem 0; border-bottom: 1px solid var(--line); }
+    .stat-item:first-child { padding-top: 0; }
+    .stat-item:last-child { border-bottom: none; }
+    .stat-number { font-family: "Cormorant Garamond", serif; font-size: 3rem; color: var(--accent); line-height: 1; font-weight: 300; }
+    .stat-desc { font-size: var(--fs-sm); color: var(--mid); margin-top: 0.3rem; }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.4rem; }
+    .skill-card { border: 1px solid var(--line); padding: 1.8rem; border-radius: 2px; transition: border-color 0.22s, transform 0.22s; }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .skill-icon { font-size: 1.5rem; margin-bottom: 0.9rem; }
+    .skill-card h3 { font-family: "Cormorant Garamond", serif; font-size: var(--fs-xl); font-weight: 400; margin-bottom: 0.8rem; }
+    .skill-list { list-style: none; font-size: var(--fs-sm); color: var(--mid); }
+    .skill-list li { padding: 0.22rem 0; }
+    .skill-list li::before { content: "— "; color: var(--accent); }
+
+    /* EXPERIENCE */
+    .experience { background: var(--white); }
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item { display: grid; grid-template-columns: 190px 1fr; gap: 3rem; padding: 2.4rem 0; border-bottom: 1px solid var(--line); }
+    .exp-item:first-child { border-top: 1px solid var(--line); }
+    .exp-date { font-size: var(--fs-sm); color: var(--mid); padding-top: 0.25rem; line-height: 1.5; }
+    .exp-company { font-size: var(--fs-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-top: 0.4rem; }
+    .exp-role { font-family: "Cormorant Garamond", serif; font-size: var(--fs-2xl); font-weight: 400; margin-bottom: 0.7rem; }
+    .exp-desc { font-size: var(--fs-sm); color: var(--mid); line-height: 1.75; }
+    .exp-desc ul { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+    .exp-desc ul li::before { content: "→ "; color: var(--accent); }
+
+    /* EDUCATION */
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+    .edu-card { border: 1px solid var(--line); padding: 2.2rem; border-radius: 2px; position: relative; overflow: hidden; transition: transform 0.2s; }
+    .edu-card:hover { transform: translateY(-4px); }
+    .edu-card::before { content: ""; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); }
+    .edu-year { font-size: var(--fs-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.7rem; }
+    .edu-degree { font-family: "Cormorant Garamond", serif; font-size: var(--fs-xl); font-weight: 400; margin-bottom: 0.4rem; line-height: 1.3; }
+    .edu-school { font-size: var(--fs-sm); color: var(--mid); }
+
+    /* CERTIFICATIONS */
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 2rem; max-width: 560px; }
+    .cert-card { border: 1px solid var(--line); border-radius: 2px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .cert-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(0,0,0,0.09); }
+    .cert-img { width: 100%; display: block; aspect-ratio: 16/11; object-fit: cover; }
+    .cert-info { padding: 1.1rem 1.3rem; }
+    .cert-issuer { font-size: var(--fs-xs); letter-spacing: 0.13em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+    .cert-name-big { font-family: "Cormorant Garamond", serif; font-size: var(--fs-lg); font-weight: 400; }
+    .cert-date { font-size: var(--fs-xs); color: var(--mid); margin-top: 0.3rem; }
+
+    /* EXTRAS */
+    .extras { background: var(--white); }
+    .extras-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .extras-col h2 { font-family: "Cormorant Garamond", serif; font-size: var(--fs-3xl); font-weight: 300; margin-bottom: 1.5rem; line-height: 1.15; }
+    .lang-item { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+    .lang-name { font-size: var(--fs-base); }
+    .lang-level { font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); }
+    .cert-item { padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+    .cert-item-name { font-size: var(--fs-base); }
+    .cert-item-sub { font-size: var(--fs-xs); color: var(--mid); margin-top: 0.15rem; }
+
+    /* CONTACT */
+    .contact { text-align: center; padding: 8rem 4rem; }
+    .contact .section-title { margin-bottom: 1rem; }
+    .contact-sub { font-size: var(--fs-lg); color: var(--mid); margin-bottom: 3rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .contact-links { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .contact-socials { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+
+    /* PROJECTS */
+    .projects { background: var(--white); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .project-card {
+      border: 1px solid var(--line); border-radius: 2px;
+      overflow: hidden; transition: transform 0.22s, box-shadow 0.22s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+    .project-thumb {
+      width: 100%; aspect-ratio: 16/10;
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .project-thumb-logo {
+      width: 30%; opacity: 0.12;
+    }
+    .project-thumb-label {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .project-thumb-label span {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 300; font-style: italic;
+      color: var(--ink); opacity: 0.35;
+      letter-spacing: 0.04em;
+    }
+    .project-thumb-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
+    .project-body { padding: 1.8rem 2rem 2rem; flex: 1; display: flex; flex-direction: column; }
+    .project-status {
+      display: inline-block; font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; padding: 0.25rem 0.7rem;
+      border-radius: 1px; margin-bottom: 1rem; font-weight: 400;
+    }
+    .status-live { background: #eef6f0; color: #2d7a4f; border: 1px solid #b8dfc8; }
+    .status-upcoming { background: #fdf3ee; color: var(--accent); border: 1px solid #f0c9b8; }
+    .project-title { font-family: "Cormorant Garamond", serif; font-size: var(--fs-2xl); font-weight: 400; margin-bottom: 0.6rem; line-height: 1.2; }
+    .project-desc { font-size: var(--fs-sm); color: var(--mid); line-height: 1.75; flex: 1; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.4rem; }
+    .project-tag { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--line); padding: 0.25rem 0.65rem; border-radius: 1px; color: var(--mid); }
+    .project-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.4rem; font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; width: fit-content; }
+    .project-link:hover { color: var(--accent); border-color: var(--accent); }
+    .project-link-disabled { opacity: 0.35; pointer-events: none; }
+
+    /* FOOTER */
+    footer { padding: 1.8rem 4rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    footer p { font-size: var(--fs-xs); color: var(--mid); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── TABLET (max 1024px) ── */
+    @media (max-width: 1024px) {
+      nav { padding: 1rem 2.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: 0.7rem; }
+      section { padding: 4.5rem 2.5rem; }
+      .hero { padding: 8rem 2.5rem 4rem; gap: 2.5rem; }
+      .about-grid { gap: 2.5rem; }
+      .exp-item { grid-template-columns: 150px 1fr; gap: 1.8rem; }
+    }
+    /* ── TABLET PORTRAIT (max 850px) ── */
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 7rem 2.5rem 3rem; }
+      .hero-visual { order: -1; }
+      .hero-subtitle { margin-left: auto; margin-right: auto; }
+      .hero-tags { justify-content: center; }
+      .hero-cta { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .edu-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+      .extras-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* ── MOBILE (max 700px) ── */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.4rem; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      section { padding: 3.5rem 1.4rem; }
+      .contact { padding: 5rem 1.4rem; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 6.5rem 1.4rem 3rem;
+        gap: 2.5rem;
+        text-align: center;
+      }
+      .hero-visual { order: -1; }
+      .hero-subtitle { margin-left: auto; margin-right: auto; }
+      .hero-tags { justify-content: center; }
+      .hero-cta { justify-content: center; }
+      .hero-info-cards { max-width: 100%; }
+      .profile-photo { width: 210px; height: 210px; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+
+      .exp-item { grid-template-columns: 1fr; gap: 0.3rem; padding: 1.8rem 0; }
+      .exp-date { padding-top: 0; }
+
+      .edu-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+      .extras-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      .certs-grid { max-width: 100%; }
+
+      footer { flex-direction: column; text-align: center; padding: 1.5rem 1.4rem; }
+    }
+
+    /* ── SMALL MOBILE (max 420px) ── */
+    @media (max-width: 420px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-cta { flex-direction: column; align-items: center; }
+      .btn { width: 100%; text-align: center; }
+    }
+
+    /* Scroll offset for fixed nav */
+    section, footer { scroll-margin-top: 70px; }
+
+    /* Focus visible for keyboard nav */
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- NAV -->
+  <nav id="mainNav" role="navigation" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo" aria-label="Gabriel Sarlund — home">
+      <img src="logo.png" alt="" aria-hidden="true" />
+      <div class="logo-wordmark">
+        <span class="logo-name">Gabriel Sarlund</span>
+        <span class="logo-sub">IT &amp; Business</span>
+      </div>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <nav id="mobileMenu" class="mobile-menu" aria-label="Mobile navigation">
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="#skills" onclick="closeMobile()">Skills</a>
+    <a href="#experience" onclick="closeMobile()">Experience</a>
+    <a href="#education" onclick="closeMobile()">Education</a>
+    <a href="#certifications" onclick="closeMobile()">Certifications</a>
+    <a href="#projects" onclick="closeMobile()">Projects</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+  </nav>
+
+  <main id="main">
+
+  <!-- HERO -->
+  <div style="width:100%;position:relative;min-height:100vh;display:flex;align-items:center;">
+  <!-- Watermark logo in hero background -->
+  <img src="logo.png" aria-hidden="true" alt="" style="
+    position:absolute;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(480px, 55vw);
+    opacity: 0.06;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  " />
+  <section class="hero" id="hero" aria-label="Introduction" style="position:relative;z-index:1;">
+    <div class="hero-text">
+      <h1>
+        <span class="first">Gabriel</span>
+        <span class="last">Sarlund</span>
+      </h1>
+      <p class="hero-subtitle">Business Information Technology student at Haaga-Helia UAS — passionate about AI and how it powers smarter, more efficient business solutions.</p>
+      <div class="hero-tags" role="list" aria-label="Key traits">
+        <span class="tag" role="listitem">IT &amp; Business</span>
+        <span class="tag" role="listitem">AI Enthusiast</span>
+        <span class="tag" role="listitem">Analytical</span>
+        <span class="tag" role="listitem">Self-Driven</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#experience" class="btn btn-primary">View Experience</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img class="profile-photo" src="photo.jpg" alt="Gabriel Sarlund — photo taken in Malta" />
+      <div class="hero-info-cards">
+        <div class="hero-card">
+          <span class="hero-card-label">Based In</span>
+          <span class="hero-card-value">Tampere, Finland</span>
+        </div>
+        <div class="hero-card">
+          <span class="hero-card-label">Studying At</span>
+          <span class="hero-card-value">Haaga-Helia UAS</span>
+        </div>
+      </div>
+      <div class="social-links" role="list" aria-label="Social media links">
+        <a href="https://linkedin.com/in/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile">LinkedIn</a>
+        <a href="https://instagram.com/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram profile">Instagram</a>
+        <a href="https://youtube.com/@gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube channel">YouTube</a>
+        <a href="https://linktr.ee/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="All social links on Linktree">All Links</a>
+      </div>
+    </div>
+  </section>
+
+  </div>
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section class="about" id="about" aria-labelledby="about-title">
+    <div class="reveal">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title" id="about-title">Where technology<br />meets business</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm a first-year Business IT student at Haaga-Helia with a genuine passion for the intersection of technology and business. Particularly excited by AI and how it can power smarter, more efficient solutions.</p>
+        <p>My background spans logistics, administration, and customer-facing roles — giving me a grounded, practical outlook that complements my academic focus. I combine a structured mindset with a proactive can-do attitude.</p>
+        <p>Always looking to grow, contribute, and build things that matter at the crossroads of tech and business.</p>
+      </div>
+      <div class="about-stats" aria-label="Quick facts">
+        <div class="stat-item">
+          <div class="stat-number" aria-label="3 plus years">3+</div>
+          <div class="stat-desc">Years of professional experience across multiple industries</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" aria-label="2">2</div>
+          <div class="stat-desc">Languages at full professional proficiency</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" aria-label="4 plus">4+</div>
+          <div class="stat-desc">Professional certifications earned</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SKILLS -->
+  <section id="skills" aria-labelledby="skills-title">
+    <div class="reveal">
+      <p class="section-label">Capabilities</p>
+      <h2 class="section-title" id="skills-title">Skills &amp; Expertise</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card"><div class="skill-icon" aria-hidden="true">💻</div><h3>Technical</h3><ul class="skill-list"><li>Microsoft Office Suite</li><li>Digital Office Tools</li><li>AI Tools &amp; Applications</li><li>Data Science &amp; Analytics</li></ul></div>
+      <div class="skill-card"><div class="skill-icon" aria-hidden="true">🧠</div><h3>Problem Solving</h3><ul class="skill-list"><li>Analytical Thinking</li><li>Attention to Detail</li><li>Independent Work</li><li>Works Under Pressure</li></ul></div>
+      <div class="skill-card"><div class="skill-icon" aria-hidden="true">🤝</div><h3>People &amp; Ops</h3><ul class="skill-list"><li>Customer Service</li><li>Teamwork &amp; Leadership</li><li>Organisation &amp; Planning</li><li>Event Coordination</li></ul></div>
+      <div class="skill-card"><div class="skill-icon" aria-hidden="true">🌐</div><h3>Languages</h3><ul class="skill-list"><li>Finnish — Native</li><li>English — Full Professional</li></ul></div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience" aria-labelledby="exp-title">
+    <div class="reveal">
+      <p class="section-label">Work History</p>
+      <h2 class="section-title" id="exp-title">Experience</h2>
+    </div>
+    <div class="exp-list reveal">
+      <article class="exp-item"><div><div class="exp-date">Sep 2025 – Jan 2026</div><div class="exp-company">Taksipalvelu Sippola / TamCab</div></div><div><h3 class="exp-role">Taxi Driver</h3><div class="exp-desc"><ul><li>Professional passenger transport with high customer satisfaction</li><li>Route optimisation and digital payment system management</li><li>Vehicle standards maintenance and regulatory compliance</li></ul></div></div></article>
+      <article class="exp-item"><div><div class="exp-date">May – Aug 2025</div><div class="exp-company">Tampereen ortodoksinen seurakunta</div></div><div><h3 class="exp-role">Acting Parish Secretary</h3><div class="exp-desc"><ul><li>Full administrative support: document handling, correspondence, and information management</li><li>Digital office tools to streamline daily operations</li><li>Main point of contact for all incoming enquiries</li></ul></div></div></article>
+      <article class="exp-item"><div><div class="exp-date">Jan – Dec 2024</div><div class="exp-company">Finnish Defence Forces</div></div><div><h3 class="exp-role">Conscript — Military Service</h3><div class="exp-desc"><ul><li>Completed mandatory military service; developed discipline and composure under pressure</li></ul></div></div></article>
+      <article class="exp-item"><div><div class="exp-date">May – Sep 2023</div><div class="exp-company">Tampereen ortodoksinen seurakunta</div></div><div><h3 class="exp-role">Church Summer Guide &amp; Custodian</h3><div class="exp-desc"><ul><li>Primary visitor contact; shared historical information and maintained welcoming atmosphere</li><li>Coordinated event logistics, supply procurement, and facility maintenance</li></ul></div></div></article>
+      <article class="exp-item"><div><div class="exp-date">May – Aug 2022</div><div class="exp-company">Tampereen ortodoksinen seurakunta</div></div><div><h3 class="exp-role">Church Custodian</h3><div class="exp-desc"><ul><li>Independently managed facility upkeep and supported event execution</li></ul></div></div></article>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- EDUCATION -->
+  <section id="education" aria-labelledby="edu-title">
+    <div class="reveal">
+      <p class="section-label">Academic Background</p>
+      <h2 class="section-title" id="edu-title">Education</h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card"><div class="edu-year">2026 – 2028</div><h3 class="edu-degree">BBA — Business Information Technology</h3><p class="edu-school">Haaga-Helia University of Applied Sciences · ICT &amp; Business</p></div>
+      <div class="edu-card"><div class="edu-year">2020 – 2023</div><h3 class="edu-degree">Matriculation Examination</h3><p class="edu-school">Tampereen klassillinen lukio</p></div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" aria-labelledby="cert-title">
+    <div class="reveal">
+      <p class="section-label">Credentials</p>
+      <h2 class="section-title" id="cert-title">Certifications</h2>
+    </div>
+    <div class="certs-grid reveal">
+      <div class="cert-card">
+        <img class="cert-img" src="cert.jpg" alt="HP LIFE Certificate of Completion — Data Science and Analytics, issued April 14 2026" />
+        <div class="cert-info">
+          <div class="cert-issuer">HP LIFE · HP Foundation</div>
+          <p class="cert-name-big">Data Science &amp; Analytics</p>
+          <p class="cert-date">Completed April 14, 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- EXTRAS -->
+  <section class="extras" id="extras" aria-label="Languages and licences">
+    <div class="extras-grid reveal">
+      <div class="extras-col">
+        <p class="section-label">Communication</p>
+        <h2>Languages</h2>
+        <div class="lang-item"><span class="lang-name">Finnish</span><span class="lang-level">Native</span></div>
+        <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">Full Professional</span></div>
+      </div>
+      <div class="extras-col">
+        <p class="section-label">Other Credentials</p>
+        <h2>Licences</h2>
+        <div class="cert-item"><p class="cert-item-name">Anniskelupassi</p><p class="cert-item-sub">Alcohol Service License</p></div>
+        <div class="cert-item"><p class="cert-item-name">Työturvallisuuskortti</p><p class="cert-item-sub">Occupational Safety Card</p></div>
+        <div class="cert-item"><p class="cert-item-name">Hygieniapassi</p><p class="cert-item-sub">Hygiene Passport</p></div>
+        <div class="cert-item"><p class="cert-item-name">Tieturva 1</p><p class="cert-item-sub">Road Safety Certificate</p></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects" aria-labelledby="projects-title">
+    <div class="reveal">
+      <p class="section-label">Work</p>
+      <h2 class="section-title" id="projects-title">Projects</h2>
+    </div>
+    <div class="projects-grid reveal">
+
+      <!-- Project 1: This portfolio -->
+      <article class="project-card">
+        <div class="project-thumb" style="background:#f0ece4;">
+          <img class="project-thumb-logo" src="logo.png" aria-hidden="true" alt="" />
+          <div class="project-thumb-label"><span>Portfolio</span></div>
+          <div class="project-thumb-accent"></div>
+        </div>
+        <div class="project-body">
+          <span class="project-status status-live">Live</span>
+          <h3 class="project-title">Personal Portfolio Website</h3>
+          <p class="project-desc">My first web project. Built with HTML &amp; CSS, fully responsive across all devices and designed with accessibility in mind. The logo was created using AI tools — everything else is self-made.</p>
+          <div class="project-tags">
+            <span class="project-tag">HTML &amp; CSS</span>
+            <span class="project-tag">Responsive Design</span>
+            <span class="project-tag">AI-Assisted</span>
+          </div>
+          <a href="#hero" class="project-link">View Site →</a>
+        </div>
+      </article>
+
+      <!-- Project 2: Cafeteria site -->
+      <article class="project-card">
+        <div class="project-thumb" style="background:#f5f0e8;">
+          <div class="project-thumb-label"><span>Café</span></div>
+          <div class="project-thumb-accent"></div>
+        </div>
+        <div class="project-body">
+          <span class="project-status status-upcoming">Coming Summer 2026</span>
+          <h3 class="project-title">Cafeteria Website</h3>
+          <p class="project-desc">A full website for a local cafeteria — menu, opening hours, contact, and atmosphere. A real client project that will go live in summer 2026. Focused on clean design and ease of use for both customers and staff.</p>
+          <div class="project-tags">
+            <span class="project-tag">Web Design</span>
+            <span class="project-tag">Client Project</span>
+            <span class="project-tag">Summer 2026</span>
+          </div>
+          <span class="project-link project-link-disabled">In Progress →</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact" aria-labelledby="contact-title" style="position:relative;overflow:hidden;">
+  <img src="logo.png" aria-hidden="true" alt="" style="
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width: min(340px, 60vw);
+    opacity: 0.06;
+    pointer-events:none;
+    user-select:none;
+    z-index:0;
+  " />
+    <div style="position:relative;z-index:1;">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title" id="contact-title">Let's Connect</h2>
+      <p class="contact-sub">Open to internships, projects, and conversations about AI &amp; business technology.</p>
+      <div class="contact-links">
+        <a href="mailto:gabriel.sarlund@gmail.com" class="btn btn-primary">gabriel.sarlund@gmail.com</a>
+        <a href="https://linkedin.com/in/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="btn btn-outline">LinkedIn</a>
+      </div>
+      <div class="contact-socials">
+        <a href="https://instagram.com/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
+        <a href="https://youtube.com/@gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link">YouTube</a>
+        <a href="https://linktr.ee/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link">All my links</a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <p>© 2026 Gabriel Sarlund</p>
+    <p>Tampere, Finland</p>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById("mainNav");
+    window.addEventListener("scroll", () => { nav.classList.toggle("scrolled", window.scrollY > 30); }, { passive: true });
+
+    // Mobile menu
+    const toggle = document.querySelector(".nav-toggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+    function closeMobile() {
+      mobileMenu.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+      document.body.style.overflow = "";
+    }
+    toggle.addEventListener("click", () => {
+      const open = mobileMenu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open);
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      document.body.style.overflow = open ? "hidden" : "";
+    });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeMobile(); });
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } });
+    }, { threshold: 0.04 });
+    document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
