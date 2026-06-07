@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gabriel Sarlund — IT & Business</title>
-  <meta name="description" content="Gabriel Sarlund — Business Information Technology student at Haaga-Helia UAS :)" />
+  <meta name="description" content="Gabriel Sarlund — Business Information Technology student at Haaga-Helia UAS, passionate about AI and business solutions." />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,8 +25,8 @@
       --fs-4xl: clamp(2.5rem, 5vw, 4rem);
       --fs-hero: clamp(3rem, 7vw, 6rem);
     }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body { background: var(--cream); color: var(--ink); font-family: "DM Sans", sans-serif; font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+    body { background: var(--cream); color: var(--ink); font-family: "DM Sans", sans-serif; font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
     /* SKIP LINK for accessibility */
     .skip-link {
@@ -346,60 +346,60 @@
 
   <main id="main">
 
-  <!-- HERO -->
-  <div style="width:100%;position:relative;min-height:100vh;display:flex;align-items:center;">
-  <!-- Watermark logo in hero background -->
-  <img src="logo.png" aria-hidden="true" alt="" style="
-    position:absolute;
-    right: -2%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: min(480px, 55vw);
-    opacity: 0.06;
-    pointer-events: none;
-    user-select: none;
-    z-index: 0;
-  " />
-  <section class="hero" id="hero" aria-label="Introduction" style="position:relative;z-index:1;">
-    <div class="hero-text">
-      <h1>
-        <span class="first">Gabriel</span>
-        <span class="last">Sarlund</span>
-      </h1>
-      <p class="hero-subtitle">Business Information Technology student at Haaga-Helia UAS! I am keen on AI and its best use for modern businesses and overall automating projects with the help of it :)</p>
-      <div class="hero-tags" role="list" aria-label="Key traits">
-        <span class="tag" role="listitem">IT &amp; Business</span>
-        <span class="tag" role="listitem">AI Enthusiast</span>
-        <span class="tag" role="listitem">Analytical</span>
-        <span class="tag" role="listitem">Self-Driven</span>
-      </div>
-      <div class="hero-cta">
-        <a href="#experience" class="btn btn-primary">View Experience</a>
-        <a href="#contact" class="btn btn-outline">Get in Touch</a>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <img class="profile-photo" src="photo.jpg" alt="Gabriel Sarlund — photo taken in Malta" />
-      <div class="hero-info-cards">
-        <div class="hero-card">
-          <span class="hero-card-label">Based In</span>
-          <span class="hero-card-value">Tampere, Finland</span>
+  <!-- HERO — wrapper now uses padding-top only, no min-height forcing a full screen -->
+  <div style="width:100%;position:relative;overflow:hidden;">
+    <!-- Watermark logo in hero background -->
+    <img src="logo.png" aria-hidden="true" alt="" style="
+      position:absolute;
+      right: -2%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(480px, 55vw);
+      opacity: 0.06;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    " />
+    <section class="hero" id="hero" aria-label="Introduction" style="position:relative;z-index:1;padding-top:8rem;">
+      <div class="hero-text">
+        <h1>
+          <span class="first">Gabriel</span>
+          <span class="last">Sarlund</span>
+        </h1>
+        <p class="hero-subtitle">Business Information Technology student at Haaga-Helia UAS — passionate about AI and how it powers smarter, more efficient business solutions.</p>
+        <div class="hero-tags" role="list" aria-label="Key traits">
+          <span class="tag" role="listitem">IT &amp; Business</span>
+          <span class="tag" role="listitem">AI Enthusiast</span>
+          <span class="tag" role="listitem">Analytical</span>
+          <span class="tag" role="listitem">Self-Driven</span>
         </div>
-        <div class="hero-card">
-          <span class="hero-card-label">Studying At</span>
-          <span class="hero-card-value">Haaga-Helia UAS</span>
+        <div class="hero-cta">
+          <a href="#experience" class="btn btn-primary">View Experience</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
         </div>
       </div>
-      <div class="social-links" role="list" aria-label="Social media links">
-        <a href="https://linkedin.com/in/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile">LinkedIn</a>
-        <a href="https://instagram.com/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram profile">Instagram</a>
-        <a href="https://youtube.com/@gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube channel">YouTube</a>
-        <a href="https://linktr.ee/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="All social links on Linktree">All Links</a>
+      <div class="hero-visual">
+        <img class="profile-photo" src="photo.jpg" alt="Gabriel Sarlund — photo taken in Malta" />
+        <div class="hero-info-cards">
+          <div class="hero-card">
+            <span class="hero-card-label">Based In</span>
+            <span class="hero-card-value">Tampere, Finland</span>
+          </div>
+          <div class="hero-card">
+            <span class="hero-card-label">Studying At</span>
+            <span class="hero-card-value">Haaga-Helia UAS</span>
+          </div>
+        </div>
+        <div class="social-links" role="list" aria-label="Social media links">
+          <a href="https://linkedin.com/in/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn profile">LinkedIn</a>
+          <a href="https://instagram.com/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram profile">Instagram</a>
+          <a href="https://youtube.com/@gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube channel">YouTube</a>
+          <a href="https://linktr.ee/gabrielsarlund" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="All social links on Linktree">All Links</a>
+        </div>
       </div>
-    </div>
-  </section>
-
+    </section>
   </div>
+
   <hr class="divider" />
 
   <!-- ABOUT -->
@@ -540,7 +540,7 @@
         <div class="project-body">
           <span class="project-status status-live">Live</span>
           <h3 class="project-title">Personal Portfolio Website</h3>
-          <p class="project-desc">My first web project. Built with HTML &amp; CSS, fully responsive across all devices and designed with accessibility in mind. The logo was created using AI tools.</p>
+          <p class="project-desc">My first web project. Built with HTML &amp; CSS, fully responsive across all devices and designed with accessibility in mind. The logo was created using AI tools — everything else is self-made.</p>
           <div class="project-tags">
             <span class="project-tag">HTML &amp; CSS</span>
             <span class="project-tag">Responsive Design</span>
@@ -557,9 +557,9 @@
           <div class="project-thumb-accent"></div>
         </div>
         <div class="project-body">
-          <span class="project-status status-upcoming">Coming this Summer 2026</span>
+          <span class="project-status status-upcoming">Coming Summer 2026</span>
           <h3 class="project-title">Cafeteria Website</h3>
-          <p class="project-desc">A full website for a local cafeteria. Including: menu, opening hours, contact, and atmosphere. A real client project that will go live in summer 2026. Focused on clean design and ease of use for both customers and staff.</p>
+          <p class="project-desc">A full website for a local cafeteria — menu, opening hours, contact, and atmosphere. A real client project that will go live in summer 2026. Focused on clean design and ease of use for both customers and staff.</p>
           <div class="project-tags">
             <span class="project-tag">Web Design</span>
             <span class="project-tag">Client Project</span>
@@ -576,17 +576,17 @@
 
   <!-- CONTACT -->
   <section class="contact" id="contact" aria-labelledby="contact-title" style="position:relative;overflow:hidden;">
-  <img src="logo.png" aria-hidden="true" alt="" style="
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    width: min(340px, 60vw);
-    opacity: 0.06;
-    pointer-events:none;
-    user-select:none;
-    z-index:0;
-  " />
+    <img src="logo.png" aria-hidden="true" alt="" style="
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width: min(340px, 60vw);
+      opacity: 0.06;
+      pointer-events:none;
+      user-select:none;
+      z-index:0;
+    " />
     <div style="position:relative;z-index:1;">
       <p class="section-label">Get In Touch</p>
       <h2 class="section-title" id="contact-title">Let's Connect</h2>
